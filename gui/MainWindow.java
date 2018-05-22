@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -13,10 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import lexer.Lexer;
 import lexer.Token;
+import server.MultiServer;
 
 public class MainWindow extends JFrame {
     
@@ -36,12 +37,33 @@ public class MainWindow extends JFrame {
     private JLabel _ipInformationText;
     private JLabel _portInformationText;
     
-    private Lexer _lexer;
+    private Lexer _lexer; 
     
-    public MainWindow(){
+     ServerSocket serverSocket = null;
+     boolean listeningg = true;
+
+    public MainWindow() throws IOException{
         this._lexer = new Lexer();
+
+         try {
+            serverSocket = new ServerSocket(8084);
+            System.out.println("Listening on port: 8084.");
+        } catch (IOException e) {
+            System.err.println("Could not listen on port: 8084.");
+            System.exit(-1);
+        }
+          while (listeningg){
+            new MultiServer(serverSocket.accept()).start();
+            System.out.println("Listening on port: 8084.");
+       
+          }
+        serverSocket.close();
+     
+        
         this.initComponents();
     }
+    
+    
     
     /**
      * 
