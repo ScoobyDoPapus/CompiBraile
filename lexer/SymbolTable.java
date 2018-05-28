@@ -5,14 +5,17 @@ import java.util.Hashtable;
 public class SymbolTable {
    
     private Hashtable _symbolTable;
-    
+   
+    //--------------------------------------------------------------------------
+    // Constructor
+    //--------------------------------------------------------------------------
     public SymbolTable(){
         this._symbolTable = new Hashtable();
         this.fillSymbolTable();
     }
    
     /**
-     * 
+     * Fill the symbol table with the alphabet.
      */
     private void fillSymbolTable(){
         //----------------------------------------------------------------------
@@ -31,10 +34,17 @@ public class SymbolTable {
         //----------------------------------------------------------------------
         // Punctuation
         //----------------------------------------------------------------------
-        this._symbolTable.put('.', "0,0/0,0/0,0-0,0/1,1/0,1"); //.
-        this._symbolTable.put(',', "0,0/0,0/0,0-0,0/1,0/0,0"); //,
-        this._symbolTable.put(':', "0,0/0,0/0,0-0,0/1,1/0,0"); //:
-        this._symbolTable.put(';', "0,0/0,0/0,0-0,0/1,0/1,0"); //;
+        this._symbolTable.put('.', "0,0/0,0/0,0-0,0/1,1/0,1"); // .
+        this._symbolTable.put(',', "0,0/0,0/0,0-0,0/1,0/0,0"); // ,
+        this._symbolTable.put(':', "0,0/0,0/0,0-0,0/1,1/0,0"); // :
+        this._symbolTable.put(';', "0,0/0,0/0,0-0,0/1,0/1,0"); // ;
+        //this._symbolTable.put(''', "0,0/0,0/0,0-0,0/0,0/0,0"); // '
+        this._symbolTable.put('?', "0,0/0,0/0,0-0,0/1,0/1,1"); // ?
+        this._symbolTable.put('!', "0,0/0,0/0,0-0,0/1,1/1,0"); // !
+        this._symbolTable.put('(', "0,0/0,0/0,0-1,0/1,0/0,1"); // (
+        this._symbolTable.put(')', "0,0/0,0/0,0-0,1/0,1/1,0"); // )
+        this._symbolTable.put('"', "0,0/0,0/0,0-0,0/1,0/1,1"); // "
+        //this._symbolTable.put('"', "0,0/0,0/0,0-0,0/0,1/1,1"); // "
         //----------------------------------------------------------------------
         // Signs
         //----------------------------------------------------------------------
@@ -65,6 +75,7 @@ public class SymbolTable {
         this._symbolTable.put('L', "0,0/0,0/0,1-1,0/1,0/1,0"); // L
         this._symbolTable.put('M', "0,0/0,0/0,1-1,1/0,0/1,0"); // M
         this._symbolTable.put('N', "0,0/0,0/0,1-1,1/0,1/1,0"); // N
+        this._symbolTable.put('ñ', "0,0/0,0/0,1-1,1/1,1/0,1"); // ñ
         this._symbolTable.put('O', "0,0/0,0/0,1-1,0/0,1/1,0"); // O
         this._symbolTable.put('P', "0,0/0,0/0,1-1,1/1,0/1,0"); // P
         this._symbolTable.put('Q', "0,0/0,0/0,1-1,1/1,1/1,0"); // Q
@@ -94,6 +105,7 @@ public class SymbolTable {
         this._symbolTable.put('l', "0,0/0,0/0,0-1,0/1,0/1,0"); // l
         this._symbolTable.put('m', "0,0/0,0/0,0-1,1/0,0/1,0"); // m
         this._symbolTable.put('n', "0,0/0,0/0,0-1,1/0,1/1,0"); // n
+        this._symbolTable.put('ñ', "0,0/0,0/0,0-1,1/1,1/0,1"); // ñ
         this._symbolTable.put('o', "0,0/0,0/0,0-1,0/0,1/1,0"); // o
         this._symbolTable.put('p', "0,0/0,0/0,0-1,1/1,0/1,0"); // p
         this._symbolTable.put('q', "0,0/0,0/0,0-1,1/1,1/1,0"); // q
@@ -109,18 +121,18 @@ public class SymbolTable {
     }
     
     /**
-     * 
-     * @param pKey
-     * @return 
+     * Check if a key is in the table.
+     * @param pKey 
+     * @return True if the key is in the table, False otherwise.
      */
     public boolean consult(char pKey){
         return this._symbolTable.containsKey(pKey);
     }
     
     /**
-     * 
-     * @param pKey
-     * @return 
+     * Get the value associated with a key.
+     * @param pKey 
+     * @return The value associated with that key.
      */
     public String getValue(char pKey){
         return this._symbolTable.get(pKey).toString();
